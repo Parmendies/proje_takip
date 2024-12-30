@@ -6,6 +6,17 @@ import 'package:sqflite/sqflite.dart';
 
 class DbAdminService {
   final DatabaseHelper instance = DatabaseHelper.instance;
+  deleteAll() async {
+    final db = await instance.database;
+
+    try {
+      await db.execute('DELETE FROM admins');
+      await db.execute('DELETE FROM employees');
+      await db.execute('DELETE FROM tasks');
+      await db.execute('DELETE FROM projects');
+    } catch (_) {}
+  }
+
   Future authenticateUser(String name, String password) async {
     try {
       final db = await instance.database; // Veritabanını alın
