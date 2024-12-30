@@ -91,8 +91,6 @@ class AddTaskPageState extends State<AddTaskPage> {
           id: _selectedEmployee!.id,
           name: _selectedEmployee!.name,
           password: _selectedEmployee!.password,
-          activeProjectId: widget.projectId,
-          activeTaskId: taskId,
         );
       }
 

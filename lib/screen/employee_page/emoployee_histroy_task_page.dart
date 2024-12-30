@@ -18,8 +18,8 @@ class _EmployeeTasksPageState extends State<EmployeeTasksPage> {
 
   @override
   void initState() {
-    super.initState();
     _loadTasks();
+    super.initState();
   }
 
   void _loadTasks() {

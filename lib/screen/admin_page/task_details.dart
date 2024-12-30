@@ -118,14 +118,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                         employeeId: selectedEmployeeId,
                         status: updateTaskStatus,
                       );
-                      await DbEmployeeService().updateEmployee(
-                          id: widget.task.employeeId!, activeTaskId: null);
 
-                      if (selectedEmployeeId != null) {
-                        await DbEmployeeService().updateEmployee(
-                            id: selectedEmployeeId!,
-                            activeTaskId: widget.task.id);
-                      }
                       Navigator.pop(context);
                       AppDialogs.showSuccedDialog(context, title: 'Kaydedildi');
                     },

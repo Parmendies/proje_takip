@@ -48,22 +48,17 @@ class DbEmployeeService {
     );
   }
 
-  Future<void> updateEmployee(
-      {required int id,
-      String? name,
-      String? password,
-      int? activeTaskId,
-      int? activeProjectId}) async {
+  Future<void> updateEmployee({
+    required int id,
+    String? name,
+    String? password,
+  }) async {
     final db = await instance.database;
 
     Map<String, dynamic> updateValues = {};
 
     if (name != null) updateValues['name'] = name;
     if (password != null) updateValues['password'] = password;
-    if (activeTaskId != null) updateValues['activeTaskId'] = activeTaskId;
-    if (activeProjectId != null) {
-      updateValues['activeProjectId'] = activeProjectId;
-    }
 
     if (updateValues.isNotEmpty) {
       await db.update(

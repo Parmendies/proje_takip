@@ -3,7 +3,6 @@ import 'package:proje_takip/models/project.dart';
 import 'package:proje_takip/models/task.dart';
 import 'package:proje_takip/screen/admin_page/add_task_page.dart';
 import 'package:proje_takip/screen/admin_page/task_details.dart';
-import 'package:proje_takip/services/db_employee_service.dart';
 import 'package:proje_takip/services/db_project_service.dart';
 import 'package:proje_takip/services/db_task_service.dart';
 import 'package:proje_takip/utils/app_dialogs.dart';
@@ -126,12 +125,6 @@ class ProjectDetailsPageState extends State<ProjectDetailsPage> {
                                                     in snapshot.data!) {
                                                   await DbTaskService()
                                                       .completeTask(task.id);
-                                                  await DbEmployeeService()
-                                                      .updateEmployee(
-                                                          id: task.employeeId!,
-                                                          activeTaskId: null,
-                                                          activeProjectId:
-                                                              null);
                                                 }
                                               }
                                               await DbProjectService()
