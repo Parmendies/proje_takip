@@ -27,18 +27,11 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
     super.initState();
   }
 
-  String getTaskStatus() {
-    if (widget.task.status == 'Tamamlandı') {
-      return 'Tamamlandı';
-    } else if (selectedEmployeeId == null) {
-      return 'Tamamlanacak';
-    } else {
-      return 'Devam Ediyor';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    print("selectedEmployeeId");
+    print(selectedEmployeeId);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Görev Detayları: ${widget.task.name}'),
@@ -50,7 +43,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildTaskInfoRow('Proje:', widget.project.name),
-              _buildTaskInfoRow('Durum:', getTaskStatus()),
+              _buildTaskInfoRow('Durum:', widget.task.status),
               _buildTaskInfoRow('Başlangıç Tarihi:', widget.task.startDate),
               _buildTaskInfoRow('Bitiş Tarihi:', widget.task.endDate),
               _buildTaskInfoRow('Adam Gün:', widget.task.manHour.toString()),
@@ -106,20 +99,24 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      //TODO
+                      String? updateTaskStatus;
+
                       if (widget.task.startDate.isEmpty ||
                           widget.task.endDate.isEmpty) {
                         AppDialogs.showErrorDialog(context,
                             'Başlangıç ve bitiş tarihleri boş olamaz.');
                         return;
                       }
-
-                      final updatedStatus = getTaskStatus();
-
+                      if (selectedEmployeeId == null) {
+                        updateTaskStatus =
+                            taskStatusEnumToString(TaskStatus.tamamlanacak);
+                      } else {
+                        updateTaskStatus = widget.task.status;
+                      }
                       await DbTaskService().updateTask(
                         id: widget.task.id,
                         employeeId: selectedEmployeeId,
-                        status: updatedStatus,
+                        status: updateTaskStatus,
                       );
                       await DbEmployeeService().updateEmployee(
                           id: widget.task.employeeId!, activeTaskId: null);

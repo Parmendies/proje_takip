@@ -99,7 +99,7 @@ class DbTaskService {
     final db = await instance.database;
     Map<String, dynamic> updateValues = {};
     if (projectId != null) updateValues['projectId'] = projectId;
-    if (employeeId != null) updateValues['employeeId'] = employeeId;
+    updateValues['employeeId'] = employeeId;
     if (name != null) updateValues['name'] = name;
     if (manHour != null) updateValues['manHour'] = manHour;
     if (startDate != null) updateValues['startDate'] = startDate;
