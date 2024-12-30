@@ -6,7 +6,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 void main() async {
   sqfliteFfiInit();
   databaseFactory = databaseFactoryFfi;
-
   await DbAdminService().addAdmin('admin', '1234');
   runApp(MyApp());
 }
