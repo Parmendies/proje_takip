@@ -4,7 +4,6 @@ import 'package:proje_takip/models/task.dart';
 import 'package:proje_takip/screen/employee_page/emoployee_histroy_task_page.dart';
 import 'package:proje_takip/screen/employee_page/employee_task_details.dart';
 import 'package:proje_takip/screen/login_page.dart';
-import 'package:proje_takip/services/db_employee_service.dart';
 import 'package:proje_takip/services/db_task_service.dart';
 import 'package:proje_takip/utils/app_dialogs.dart';
 import 'package:proje_takip/utils/app_elevated_button.dart';
@@ -22,7 +21,10 @@ class EmployeeHomePage extends StatefulWidget {
 
 class _EmployeeHomePageState extends State<EmployeeHomePage> {
   Future<List<Task>> _fetchEmployeeTasks() async {
-    return await DbTaskService().getTasksByEmployeeId(widget.employee.id);
+    var a = await DbTaskService().getTasksByEmployeeId(widget.employee.id);
+    print(a);
+    print(widget.employee);
+    return a;
   }
 
   @override
@@ -179,12 +181,9 @@ class _EmployeeHomePageState extends State<EmployeeHomePage> {
                                   ? DbTaskService()
                                       .updateTask(
                                           id: task.id,
+                                          employeeId: task.employeeId,
                                           status: taskStatusEnumToString(
                                               TaskStatus.devamEdiyor))
-                                      .then((value) =>
-                                          DbEmployeeService().updateEmployee(
-                                            id: widget.employee.id,
-                                          ))
                                       .then((value) => setState(() {}))
                                   : null;
                             });
